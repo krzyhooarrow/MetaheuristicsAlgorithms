@@ -2,13 +2,21 @@ package graphs;
 
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
+import java.util.HashSet;
 import java.util.LinkedList;
+import java.util.Set;
 
 public abstract class Graph {
 
-    LinkedList<Edge> edges = new LinkedList<Edge>();
-    LinkedList<Integer> vertices = new LinkedList<Integer>();
+    final LinkedList<Edge> edges = new LinkedList<Edge>();
+    final Set<Integer> vertices = new HashSet<Integer>();
 
+
+
+    public Graph(int size) {
+      for (int i =0 ; i < size ; i ++)
+          vertices.add(i);
+    }
 
     public void addEdge(int from, int to, float weight) {
         if (from!=to)
@@ -22,7 +30,7 @@ public abstract class Graph {
     }
 
 
-    public LinkedList<Integer> getVertexNeighbours(Integer vertex){
+    public Set<Integer> getVertexNeighbours(Integer vertex){
       throw new NotImplementedException();
     }
 
@@ -30,11 +38,13 @@ public abstract class Graph {
         return edges;
     }
 
-    public LinkedList<Integer> getVertices() {
+    public Set<Integer> getVertices() {
         return vertices;
     }
 
-    public Edge getLeastWeightedEdge(Integer vertex){throw new NotImplementedException();}
+    public Edge getLeastWeightedEdge(Integer vertex)  {throw new NotImplementedException();}
+
+    public Edge getEdgeBetweenTwoVertices(int from, int to) {throw new NotImplementedException();  }
 
 
     @Override

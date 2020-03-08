@@ -1,13 +1,21 @@
 package graphs;
 
 
+import java.util.Comparator;
+import java.util.HashSet;
 import java.util.LinkedList;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 public class DirectedGraph extends Graph {
 
-    public LinkedList<Integer> getVertexNeighbours(Integer vertex){
 
-        LinkedList<Integer> neighbours = new LinkedList<Integer>();
+    public DirectedGraph(int size) {
+        super(size);
+    }
+
+    public Set<Integer> getVertexNeighbours(Integer vertex){
+        Set<Integer> neighbours = new HashSet<Integer>();
 
         for (Edge e: edges) {
             if (e.getFrom().equals(vertex))
@@ -16,28 +24,22 @@ public class DirectedGraph extends Graph {
         return neighbours;
     }
 
-    public Edge getLeastWeightedEdge(Integer vertex){
-
-        Edge leastWeightedEdge = new Edge(-1,-1, Float.MAX_VALUE);
-
-        for (Edge e:edges ) {
-            if (e.getFrom().equals(vertex))
-                if (e.getWeight() <= leastWeightedEdge.getWeight())
-                    leastWeightedEdge = e;
-        }
-        return leastWeightedEdge;
+    public Edge getLeastWeightedEdge(Integer vertex)  {
+        return edges.stream().filter(edge -> edge.getFrom().equals(vertex))
+                .min(Comparator.comparing(Edge::getWeight)).orElse(null);
     }
 
 
     public LinkedList<Edge> getNeighbourhoodEdges(Integer vertex){
-        LinkedList<Edge> neighbourhood = new LinkedList<Edge>();
-
-        for (Edge e:edges) {
-            if (e.getFrom().equals(vertex))
-                neighbourhood.add(e);
-        }
-        return neighbourhood;
+        return edges.stream()
+                .filter(edge -> edge.getFrom().equals(vertex))
+                .collect(Collectors.toCollection(LinkedList::new));
     }
 
-
+    @Override
+    public Edge getEdgeBetweenTwoVertices(int from, int to) {
+        return edges.stream().filter(edge ->
+                (edge.getFrom().equals(from) && edge.getTo().equals(to)))
+                .min(Comparator.comparing(Edge::getWeight)).orElse(null);
+    }
 }

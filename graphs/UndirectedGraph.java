@@ -1,19 +1,28 @@
 package graphs;
 
+import java.util.Comparator;
+import java.util.HashSet;
 import java.util.LinkedList;
+import java.util.Set;
+import java.util.stream.Collectors;
 
-public class UndirectedGraph extends Graph  {
+public class UndirectedGraph extends Graph {
 
-    public void addEdge(int vertex1, int vertex2, float weight) {
-        edges.add(new Edge(vertex1,vertex1,weight));
-        edges.add(new Edge(vertex2,vertex1,weight));
+
+    public UndirectedGraph(int size) {
+        super(size);
     }
 
-    public LinkedList<Integer> getVertexNeighbours(Integer vertex){
+    public void addEdge(int vertex1, int vertex2, float weight) {
+        edges.add(new Edge(vertex1, vertex1, weight));
+        edges.add(new Edge(vertex2, vertex1, weight));
+    }
 
-        LinkedList<Integer> neighbours = new LinkedList<Integer>();
+    public Set<Integer> getVertexNeighbours(Integer vertex) {
 
-        for (Edge e: edges) {
+        Set<Integer> neighbours = new HashSet<Integer>();
+
+        for (Edge e : edges) {
             if (e.getFrom().equals(vertex))
                 neighbours.add(e.getTo());
             else if (e.getTo().equals(vertex))
@@ -22,28 +31,22 @@ public class UndirectedGraph extends Graph  {
         return neighbours;
     }
 
-
-    public Edge getLeastWeightedEdge(Integer vertex){
-
-        Edge leastWeightedEdge = new Edge(-1,-1, Float.MAX_VALUE);
-
-        for (Edge e:edges ) {
-            if (e.getFrom().equals(vertex) || e.getTo().equals(vertex))
-                if (e.getWeight() <= leastWeightedEdge.getWeight())
-                    leastWeightedEdge = e;
-        }
-        return leastWeightedEdge;
+    @Override
+    public Edge getEdgeBetweenTwoVertices(int from, int to)  {
+        return edges.stream().filter(edge ->
+                (edge.getFrom().equals(from) && edge.getTo().equals(to)) || (edge.getTo().equals(from) && edge.getFrom().equals(to)))
+                .min(Comparator.comparing(Edge::getWeight)).orElse(null);
     }
 
-    public LinkedList<Edge> getNeighbourhoodEdges(Integer vertex){
-        LinkedList<Edge> neighbourhood = new LinkedList<Edge>();
-
-        for (Edge e:edges) {
-            if (e.getFrom().equals(vertex) || e.getTo().equals(vertex))
-                neighbourhood.add(e);
-        }
-        return neighbourhood;
+    public Edge getLeastWeightedEdge(Integer vertex) {
+        return edges.stream().filter(edge -> edge.getFrom().equals(vertex) || edge.getTo().equals(vertex))
+                .min(Comparator.comparing(Edge::getWeight)).orElse(null);
     }
 
+    public LinkedList<Edge> getNeighbourhoodEdges(Integer vertex) {
+        return edges.stream()
+                .filter(edge -> edge.getFrom().equals(vertex) || edge.getTo().equals(vertex))
+                .collect(Collectors.toCollection(LinkedList::new));
+    }
 
 }
