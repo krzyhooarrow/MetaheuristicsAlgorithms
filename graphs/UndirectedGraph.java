@@ -14,7 +14,7 @@ public class UndirectedGraph extends Graph {
     }
 
     public void addEdge(int vertex1, int vertex2, float weight) {
-        edges.add(new Edge(vertex1, vertex1, weight));
+        edges.add(new Edge(vertex1, vertex2, weight));
         edges.add(new Edge(vertex2, vertex1, weight));
     }
 
@@ -49,4 +49,31 @@ public class UndirectedGraph extends Graph {
                 .collect(Collectors.toCollection(LinkedList::new));
     }
 
+
+    @Override
+    public Float getCycleCost(LinkedList<Integer> verticesInCycle) {
+        if (!(verticesInCycle.size()>0))
+            return Float.POSITIVE_INFINITY;
+
+
+        float sum = 0F;
+
+        for (int i = 0; i < verticesInCycle.size() - 1; i++) {
+
+            int finalI = i;
+
+            sum += edges.stream()
+                    .filter(edge -> edge.getFrom().equals(verticesInCycle.get(finalI)) && edge.getTo().equals(verticesInCycle.get(finalI + 1))
+                    ||  edge.getFrom().equals(verticesInCycle.get(finalI+1)) && edge.getTo().equals(verticesInCycle.get(finalI)))
+                    .min(Comparator.comparing(Edge::getWeight)).orElse(new Edge(-1,-1,Float.POSITIVE_INFINITY)).getWeight();
+        }
+        // to make cycle connecting first with the last one
+
+        sum += edges.stream()
+                .filter(edge -> edge.getFrom().equals(verticesInCycle.get(0)) && edge.getTo().equals(verticesInCycle.get(verticesInCycle.size()-1))
+                        ||  edge.getFrom().equals(verticesInCycle.get(verticesInCycle.size()-1)) && edge.getTo().equals(verticesInCycle.get(0)))
+                .min(Comparator.comparing(Edge::getWeight)).orElse(new Edge(-1,-1,Float.POSITIVE_INFINITY)).getWeight();
+
+        return sum;
+    }
 }

@@ -46,6 +46,8 @@ public abstract class Graph {
 
     public Edge getEdgeBetweenTwoVertices(int from, int to) {throw new NotImplementedException();  }
 
+    // requires full cycle in List ex. 1-2-3-4-5-6-1
+    public Float getCycleCost(LinkedList<Integer> verticesInCycle) throws InconsistentGraphException {throw new NotImplementedException();}
 
     @Override
     public String toString() {
