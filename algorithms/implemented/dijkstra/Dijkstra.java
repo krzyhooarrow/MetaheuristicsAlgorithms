@@ -1,7 +1,6 @@
-package algorithms.dijkstra;
+package algorithms.implemented.dijkstra;
 
 import graphs.Graph;
-import graphs.InconsistentGraphException;
 
 import java.util.*;
 
@@ -10,7 +9,7 @@ public class Dijkstra {
     // returns distances from specified source
     public Float[] calculateDistances(Graph graph, Integer source) {
 
-        // starting conditions
+        // starting Configuration
         Float[] distances = new Float[graph.getVertices().size()];
         Arrays.fill(distances, Float.MAX_VALUE);
         distances[source] = 0F;

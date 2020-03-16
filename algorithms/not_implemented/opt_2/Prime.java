@@ -1,4 +1,4 @@
-package algorithms.opt_2;
+package algorithms.not_implemented.opt_2;
 
 import graphs.Edge;
 import graphs.Graph;

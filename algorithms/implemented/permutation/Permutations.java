@@ -1,4 +1,4 @@
-package problems;
+package algorithms.permutation;
 
 import com.google.common.collect.Lists;
 import org.apache.commons.math3.util.CombinatoricsUtils;
