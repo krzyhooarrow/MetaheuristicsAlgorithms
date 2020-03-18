@@ -36,8 +36,9 @@ public class TabuSearch<U extends TabuSearchProblem<T>, T> {
                                 tabuElement.equals(problem.substitute(candidateFromNeighbourhood, fCurrentSolution))
                                                     ||
                                  // element might be in tabu list but it's evaluation * coefficient is better than best one evaluation
-                                !problem.isBetterThan(candidateFromNeighbourhood, Configuration.ALPHA_COEFFICIENT ,fBestSolution)
-                                                    ||
+                                 // optional
+//                                !problem.isBetterThan(candidateFromNeighbourhood, Configuration.ALPHA_COEFFICIENT ,fBestSolution)
+//                                                    ||
                                  // candidate is different than already found best
                                  candidateFromNeighbourhood.equals(fbestSolution)
                             ))

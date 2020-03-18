@@ -1,8 +1,12 @@
 
+import algorithms.Configuration;
 import algorithms.implemented.tabu_search.TabuSearch;
 import graphs.Edge;
 import algorithms.permutation.Permutations;
+import problems.GriewankProblem;
+import problems.HappyCatProblem;
 import problems.TSP;
+import problems.Vector4D;
 
 import java.util.*;
 import java.util.stream.LongStream;
@@ -13,9 +17,28 @@ public class Main {
 
         TSP tsp = generateFullGraph(8,50);
 
-        printBruteforce(tsp);
+//        printBruteforce(tsp);
+//
+//        printTabu(tsp);
 
-        printTabu(tsp);
+
+//        System.out.println(new HappyCatProblem().eval(new Vector4D(-1,-1,-1,-1)));
+//        System.out.println(new GriewankProblem().eval(new Vector4D(0,0,0,0)));
+
+
+        System.out.println("\nTabu Search (in selected steps)");
+        TabuSearch<HappyCatProblem,Vector4D> tabuSearch = new TabuSearch<>();
+        Vector4D bestSolution = tabuSearch.solve(new HappyCatProblem());
+        System.out.println(bestSolution);
+        System.out.println(new HappyCatProblem().eval(bestSolution));
+
+
+        System.out.println("\nTabu Search (in selected steps)");
+        TabuSearch<GriewankProblem,Vector4D> tabuSearch2 = new TabuSearch<>();
+        Vector4D bestSolution2 = tabuSearch2.solve(new GriewankProblem());
+        System.out.println(bestSolution2);
+        System.out.println(new GriewankProblem().eval(bestSolution2));
+
 
     }
 

@@ -27,7 +27,7 @@ public class TSP extends UndirectedGraph implements TabuSearchProblem<LinkedList
 
     @Override
     public boolean getStopCondition() {
-        return currentStep >= Configuration.MAX_ITERATIONS;
+        return currentStep >= Configuration.TSP_MAX_ITERATIONS;
     }
 
     @Override
