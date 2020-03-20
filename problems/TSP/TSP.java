@@ -1,4 +1,4 @@
-package problems;
+package problems.TSP;
 
 import algorithms.Configuration;
 import algorithms.permutation.Permutations;
@@ -36,7 +36,7 @@ public class TSP extends UndirectedGraph implements TabuSearchProblem<LinkedList
     }
 
     @Override
-    public void iterate(Integer iterator) {
+    public void iterate(Integer iterator, LinkedList<Integer> solution) {
         this.currentStep = iterator;
     }
 

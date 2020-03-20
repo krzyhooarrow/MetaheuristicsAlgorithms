@@ -1,4 +1,4 @@
-package problems;
+package problems.Functions;
 
 public class Vector4D {
 

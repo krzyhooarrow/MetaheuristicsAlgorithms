@@ -19,6 +19,8 @@ public class Configuration {
     public static final int TSP_MAX_ITERATIONS = 200;
     public static final int PERMUTATIONS_SIZE = 2;
 
+    //
+    public static final Integer ROUTE_OPT_MAX_ITERATIONS = 200;
 
 
     // should be >1
@@ -28,5 +30,4 @@ public class Configuration {
 
 
 
-
-}
+    }

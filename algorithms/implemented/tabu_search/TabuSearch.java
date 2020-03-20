@@ -58,12 +58,13 @@ public class TabuSearch<U extends TabuSearchProblem<T>, T> {
             // adding current move to tabu list
             tabuList.add(problem.substitute(temporarySolution, currentSolution));
             // if new solution eval > best solution eval then best solution = new solution
-            bestSolution = problem.eval(currentSolution) < problem.eval(bestSolution) ?  currentSolution : bestSolution;
+            bestSolution = problem.eval(currentSolution) <= problem.eval(bestSolution) ?  currentSolution : bestSolution;
             // reducing tabu list
             if (iterations>=Configuration.TABU_LIST_SIZE) tabuList.remove();
             // clearing all and moving to next iteration
             candidateList.clear();
-            problem.iterate(iterations);
+            // next iter
+            problem.iterate(iterations,currentSolution);
             iterations++;
         }
 

@@ -1,4 +1,4 @@
-package problems;
+package problems.Functions;
 
 import algorithms.Configuration;
 import algorithms.implemented.tabu_search.TabuSearchProblem;
@@ -61,7 +61,7 @@ public class HappyCatProblem implements TabuSearchProblem<Vector4D> {
     }
 
     @Override
-    public void iterate(Integer iterator) {
+    public void iterate(Integer iterator,Vector4D solution) {
         this.currentStep = iterator;
     }
 
