@@ -25,6 +25,7 @@ public class RouteOptProblem implements TabuSearchProblem<RouteOptProblem.Point>
     private boolean alreadyFoundWallRight = false;
     private Point solution;
 
+    private Integer time = 0;
 
     public RouteOptProblem(int[][] map) {
         this.map = map;
@@ -49,8 +50,13 @@ public class RouteOptProblem implements TabuSearchProblem<RouteOptProblem.Point>
 
     @Override
     public boolean getStopCondition() {
-        return currentStep >= Configuration.ROUTE_OPT_MAX_ITERATIONS || solution.value == 8
-                ||  (M >= N ? (solution.x ==1 && solution.y ==startingY && alreadyFoundWallDown) : (solution.x == startingX  && solution.y == M-2 && alreadyFoundWallLeft ))
+        return  time >= Configuration.ROUTE_OPT_MAX_TIME
+//                currentStep >= Configuration.ROUTE_OPT_MAX_ITERATIONS
+                ||
+                solution.value == 8
+                ||
+                (M >= N ? (solution.x ==1 && solution.y ==startingY && alreadyFoundWallDown)
+                : (solution.x == startingX  && solution.y == M-2 && alreadyFoundWallLeft ))
                 ;
     }
 
@@ -142,9 +148,10 @@ public class RouteOptProblem implements TabuSearchProblem<RouteOptProblem.Point>
     }
 
     @Override
-    public void iterate(Integer iterator, Point solution) {
+    public void iterate(Integer iterator, Point solution, Integer timer) {
         this.currentStep = iterator;
         this.solution = solution;
+        this.time = timer;
     }
 
     @Override

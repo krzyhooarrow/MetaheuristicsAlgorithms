@@ -12,6 +12,7 @@ public class HappyCatProblem implements TabuSearchProblem<Vector4D> {
 
     private Integer currentStep = 0;
     private Random generator = new Random();
+    private Integer time = 0;
 
     @Override
     public Vector4D generateInitialSolution() {
@@ -25,7 +26,9 @@ public class HappyCatProblem implements TabuSearchProblem<Vector4D> {
     }
 
     @Override
-    public boolean getStopCondition() {  return currentStep >= Configuration.HAPPY_CAT_ITERATIONS;  }
+    public boolean getStopCondition() {  return time>=Configuration.HAPPYCAT_MAX_TIME;
+//            currentStep >= Configuration.HAPPY_CAT_ITERATIONS;
+    }
 
     @Override
     public LinkedList<Vector4D> getNeighbourhood(Vector4D solution) {
@@ -61,8 +64,8 @@ public class HappyCatProblem implements TabuSearchProblem<Vector4D> {
     }
 
     @Override
-    public void iterate(Integer iterator,Vector4D solution) {
-        this.currentStep = iterator;
+    public void iterate(Integer iterator, Vector4D solution, Integer timer) {
+        this.currentStep = iterator;this.time = timer;
     }
 
     @Override

@@ -1,15 +1,17 @@
 package problems.TSP;
 
 import algorithms.Configuration;
-import algorithms.permutation.Permutations;
-import graphs.UndirectedGraph;
+import algorithms.implemented.permutation.Permutations;
+import graphs.DirectedGraph;
 import algorithms.implemented.tabu_search.TabuSearchProblem;
 
 import java.util.*;
 
-public class TSP extends UndirectedGraph implements TabuSearchProblem<LinkedList<Integer>> {
+public class TSP extends DirectedGraph implements TabuSearchProblem<LinkedList<Integer>> {
 
     private Integer currentStep = 0;
+
+    public Integer time = 0;
 
     public TSP(int size) {
         super(size);
@@ -27,7 +29,8 @@ public class TSP extends UndirectedGraph implements TabuSearchProblem<LinkedList
 
     @Override
     public boolean getStopCondition() {
-        return currentStep >= Configuration.TSP_MAX_ITERATIONS;
+        return time >= Configuration.TSP_MAX_TIME;
+//                currentStep >= Configuration.TSP_MAX_ITERATIONS;
     }
 
     @Override
@@ -36,8 +39,8 @@ public class TSP extends UndirectedGraph implements TabuSearchProblem<LinkedList
     }
 
     @Override
-    public void iterate(Integer iterator, LinkedList<Integer> solution) {
-        this.currentStep = iterator;
+    public void iterate(Integer iterator, LinkedList<Integer> solution, Integer timer) {
+        this.currentStep = iterator; this.time = timer;
     }
 
     @Override

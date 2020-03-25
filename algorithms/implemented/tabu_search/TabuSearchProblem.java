@@ -9,7 +9,7 @@ public interface TabuSearchProblem<T> {
     LinkedList<T> getNeighbourhood(T solution);
     T getBestCandidate(Set<T> list);
     float eval(T candidate);
-    void iterate(Integer iterator,T solution);
+    void iterate(Integer iterator, T solution, Integer timer);
     T substitute(T value1, T value2);
     boolean isBetterThan(T better, float coefficient, T worse);
 }

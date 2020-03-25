@@ -13,6 +13,7 @@ public class GriewankProblem implements TabuSearchProblem<Vector4D> {
     private Integer currentStep = 0;
     private Random generator = new Random();
 
+    private Integer time = 0;
 
     @Override
     public Vector4D generateInitialSolution() {
@@ -26,7 +27,9 @@ public class GriewankProblem implements TabuSearchProblem<Vector4D> {
     }
 
     @Override
-    public boolean getStopCondition() {  return currentStep >= Configuration.GRIEWANK_ITERATIONS;  }
+    public boolean getStopCondition() {  return Configuration.GRIEWANK_MAX_TIME <= time;
+//            currentStep >= Configuration.GRIEWANK_ITERATIONS;
+    }
 
     @Override
     public LinkedList<Vector4D> getNeighbourhood(Vector4D solution) {
@@ -69,8 +72,8 @@ public class GriewankProblem implements TabuSearchProblem<Vector4D> {
     }
 
     @Override
-    public void iterate(Integer iterator,Vector4D solution) {
-        this.currentStep = iterator;
+    public void iterate(Integer iterator, Vector4D solution, Integer timer) {
+        this.currentStep = iterator; this.time = timer;
     }
 
     @Override

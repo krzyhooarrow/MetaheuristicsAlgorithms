@@ -15,7 +15,9 @@ public class TabuSearch<U extends TabuSearchProblem<T>, T> {
     public T solve(TabuSearchProblem<T> problem) {
         int iterations = 0;
 
-        T bestSolution = problem.generateInitialSolution(), currentSolution = bestSolution , temporarySolution = bestSolution;
+        int timer = Math.toIntExact(System.currentTimeMillis() / 1000);
+
+        T bestSolution = problem.generateInitialSolution(), currentSolution = bestSolution , temporarySolution;
 
         Set<T> candidateList = new HashSet<>();
 
@@ -63,13 +65,11 @@ public class TabuSearch<U extends TabuSearchProblem<T>, T> {
             if (iterations>=Configuration.TABU_LIST_SIZE) tabuList.remove();
             // clearing all and moving to next iteration
             candidateList.clear();
-            // next iter
-            problem.iterate(iterations,currentSolution);
+            // next iteration
+            problem.iterate(iterations,currentSolution, Math.toIntExact(System.currentTimeMillis() / 1000)-timer);
             iterations++;
+
         }
-
-        System.out.println("Iterations: " + iterations);
-
         return bestSolution;
     }
 }

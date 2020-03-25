@@ -1,4 +1,4 @@
-package algorithms.permutation;
+package algorithms.implemented.permutation;
 
 import com.google.common.collect.Lists;
 import org.apache.commons.math3.util.CombinatoricsUtils;
@@ -12,32 +12,30 @@ import java.util.stream.Stream;
 public class Permutations<T> {
 
     public List<List<T>> combine(int permutationSize,LinkedList<T> list){
-        return  Generator.combination(list)
-                .simple(permutationSize)
-                .stream().collect(Collectors.toList());
-    }
 
-    public  long factorial(int n) {
-        if (n > 20 || n < 0) throw new IllegalArgumentException(n + " is out of range");
-        return LongStream.rangeClosed(2, n).reduce(1, (a, b) -> a * b);
-    }
-    public  <T> List<T> permutation(long no, List<T> items) {
-        return permutationHelper(no,
-                new LinkedList<>(Objects.requireNonNull(items)),
-                new ArrayList<>());
-    }
-    private  <T> List<T> permutationHelper(long no, LinkedList<T> in, List<T> out) {
-        if (in.isEmpty()) return out;
-        long subFactorial = factorial(in.size() - 1);
-        out.add(in.remove((int) (no / subFactorial)));
-        return permutationHelper((int) (no % subFactorial), in, out);
-    }
-    @SafeVarargs
-    @SuppressWarnings("varargs") // Creating a List from an array is safe
-    public  final <T> Stream<Stream<T>> of(T... items) {
-        List<T> itemList = Arrays.asList(items);
-        return LongStream.range(0, factorial(items.length))
-                .mapToObj(no -> permutation(no, itemList).stream());
+        Random generator = new Random();
+        for (int i =0 ; i < generator.nextInt(((Double) Math.sqrt(list.size())).intValue());i++) {
+            T head = list.getFirst();
+            list.remove(head);
+            list.add(head);
+        }
+
+        List<T> subList = list.subList(0,((Double) Math.sqrt(list.size())).intValue());
+
+        return list.size()-2 - ((Double) Math.sqrt(list.size())).intValue() <= permutationSize
+                ?
+                Generator.combination(list)
+                .simple(permutationSize)
+                .stream().collect(Collectors.toList())
+                :
+                Generator.combination(list.subList(((Double) Math.sqrt(list.size())).intValue()+1,list.size()-1))
+                .simple(permutationSize)
+                .stream().map(element-> {
+                    LinkedList<T> combinations = new LinkedList<>(subList);
+                    combinations.addAll(element);
+                return combinations;
+                })
+                .collect(Collectors.toList());
     }
 
 }
