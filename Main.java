@@ -4,6 +4,7 @@ import graphs.Edge;
 import algorithms.permutation.Permutations;
 import problems.Functions.GriewankProblem;
 import problems.Functions.HappyCatProblem;
+import problems.Parser;
 import problems.RouteOpt.RouteOptProblem;
 import problems.TSP.TSP;
 import problems.Functions.Vector4D;
@@ -17,63 +18,20 @@ public class Main {
 
         TSP tsp = generateFullGraph(8, 50);
 
-//        printBruteforce(tsp);
-//
-//        printTabu(tsp);
 
+        printBruteforce(tsp);
 
-//        System.out.println(new HappyCatProblem().eval(new Vector4D(-1,-1,-1,-1)));
-//        System.out.println(new GriewankProblem().eval(new Vector4D(0,0,0,0)));
-
-
-//        System.out.println("\nTabu Search (in selected steps)");
-//        TabuSearch<HappyCatProblem,Vector4D> tabuSearch = new TabuSearch<>();
-//        Vector4D bestSolution = tabuSearch.solve(new HappyCatProblem());
-//        System.out.println(bestSolution);
-//        System.out.println(new HappyCatProblem().eval(bestSolution));
-//
-//
-//        System.out.println("\nTabu Search (in selected steps)");
-//        TabuSearch<GriewankProblem,Vector4D> tabuSearch2 = new TabuSearch<>();
-//        Vector4D bestSolution2 = tabuSearch2.solve(new GriewankProblem());
-//        System.out.println(bestSolution2);
-//        System.out.println(new GriewankProblem().eval(bestSolution2));
-
-
-        RouteOptProblem routeOptProblem = new RouteOptProblem(generateMap(20));
-
-
-//        System.out.println(Arrays.deepToString(generateMap(20)));
-//
         System.out.println("\nTabu Search (in selected steps)");
-        TabuSearch<RouteOptProblem, RouteOptProblem.Point> tabuSearch = new TabuSearch<>();
-        RouteOptProblem.Point bestSolution = tabuSearch.solve(routeOptProblem);
+        TabuSearch<TSP,LinkedList<Integer>> tabuSearch2 = new TabuSearch<>();
+        LinkedList<Integer> bestSolution2 = tabuSearch2.solve(tsp);
+        System.out.println(bestSolution2);
+        System.out.println(tsp.eval(bestSolution2));
 
-        if (routeOptProblem.getNeighbourhood(bestSolution).stream().anyMatch(solution -> solution.value == 8))
-            System.out.println("Exit found in neighbourhood of point: " + bestSolution);
-        else System.out.println("Exit not found");
 
 
     }
 
-    public static int[][] generateMap(int size) {
-        int[][] map = new int[size][2 * size];
 
-
-        for (int i = 0; i < size; i++) {
-            if (i != 0 && i != size - 1)
-                Arrays.fill(map[i], 0);
-            else Arrays.fill(map[i], 1);
-
-            map[i][0] = 1;
-            map[i][2 * size - 1] = 1;
-        }
-
-        map[8][2] = 5;
-        map[8][0] = 8;
-
-        return map;
-    }
 
 
     public static TSP generateFullGraph(int size, int weightRange) {
@@ -85,7 +43,7 @@ public class Main {
         }
         return graph;
     }
-
+//
     public static void printBruteforce(TSP tsp) {
         LinkedList<Integer> permutated = new LinkedList<>(tsp.getVertices());
         long permutations = new Permutations<Integer>().factorial(permutated.size());
@@ -103,15 +61,15 @@ public class Main {
         System.out.println(solution);
         System.out.println(tsp.getCycleCost(solution));
     }
-
-    public static void printTabu(TSP tsp) {
-
-        System.out.println("\nTabu Search (in selected steps)");
-        TabuSearch<TSP, LinkedList<Integer>> tabuSearch = new TabuSearch<>();
-        LinkedList<Integer> bestSolution = tabuSearch.solve(tsp);
-        System.out.println(bestSolution);
-        System.out.println(tsp.eval(bestSolution));
-    }
+//
+//    public static void printTabu(TSP tsp) {
+//
+//        System.out.println("\nTabu Search (in selected steps)");
+//        TabuSearch<TSP, LinkedList<Integer>> tabuSearch = new TabuSearch<>();
+//        LinkedList<Integer> bestSolution = tabuSearch.solve(tsp);
+//        System.out.println(bestSolution);
+//        System.out.println(tsp.eval(bestSolution));
+//    }
 
 
 }
