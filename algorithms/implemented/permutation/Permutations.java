@@ -13,29 +13,18 @@ public class Permutations<T> {
 
     public List<List<T>> combine(int permutationSize,LinkedList<T> list){
 
+        LinkedList<T> copy = new LinkedList<>(list);
+
         Random generator = new Random();
         for (int i =0 ; i < generator.nextInt(((Double) Math.sqrt(list.size())).intValue());i++) {
-            T head = list.getFirst();
-            list.remove(head);
-            list.add(head);
+            T head = copy.getFirst();
+            copy.remove(head);
+            copy.add(head);
         }
 
-        List<T> subList = list.subList(0,((Double) Math.sqrt(list.size())).intValue());
-
-        return list.size()-2 - ((Double) Math.sqrt(list.size())).intValue() <= permutationSize
-                ?
-                Generator.combination(list)
+        return  Generator.combination(copy.subList(0,((Double) Math.sqrt(list.size())).intValue()))
                 .simple(permutationSize)
-                .stream().collect(Collectors.toList())
-                :
-                Generator.combination(list.subList(((Double) Math.sqrt(list.size())).intValue()+1,list.size()-1))
-                .simple(permutationSize)
-                .stream().map(element-> {
-                    LinkedList<T> combinations = new LinkedList<>(subList);
-                    combinations.addAll(element);
-                return combinations;
-                })
-                .collect(Collectors.toList());
+                .stream().collect(Collectors.toList());
     }
 
 }

@@ -10,7 +10,7 @@ import java.util.Set;
 
 public class GriewankProblem implements TabuSearchProblem<Vector4D> {
 
-    private Integer currentStep = 0;
+
     private Random generator = new Random();
 
     private Integer time = 0;
@@ -19,10 +19,10 @@ public class GriewankProblem implements TabuSearchProblem<Vector4D> {
     public Vector4D generateInitialSolution() {
         return new Vector4D
                 (
-                        Configuration.GRIEWANK_SPACE_SIZE/2 - generator.nextInt(Configuration.GRIEWANK_SPACE_SIZE),
-                        Configuration.GRIEWANK_SPACE_SIZE/2 - generator.nextInt(Configuration.GRIEWANK_SPACE_SIZE),
-                        Configuration.GRIEWANK_SPACE_SIZE/2 - generator.nextInt(Configuration.GRIEWANK_SPACE_SIZE),
-                        Configuration.GRIEWANK_SPACE_SIZE/2 - generator.nextInt(Configuration.GRIEWANK_SPACE_SIZE)
+                        Configuration.GRIEWANK_SPACE_SIZE/2F - generator.nextInt(Configuration.GRIEWANK_SPACE_SIZE),
+                        Configuration.GRIEWANK_SPACE_SIZE/2F - generator.nextInt(Configuration.GRIEWANK_SPACE_SIZE),
+                        Configuration.GRIEWANK_SPACE_SIZE/2F - generator.nextInt(Configuration.GRIEWANK_SPACE_SIZE),
+                        Configuration.GRIEWANK_SPACE_SIZE/2F - generator.nextInt(Configuration.GRIEWANK_SPACE_SIZE)
                 );
     }
 
@@ -72,8 +72,8 @@ public class GriewankProblem implements TabuSearchProblem<Vector4D> {
     }
 
     @Override
-    public void iterate(Integer iterator, Vector4D solution, Integer timer) {
-        this.currentStep = iterator; this.time = timer;
+    public void iterate(Vector4D solution, Integer timer) {
+      this.time = timer;
     }
 
     @Override

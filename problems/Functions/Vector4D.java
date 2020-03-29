@@ -3,12 +3,12 @@ package problems.Functions;
 public class Vector4D {
 
 
-    public Integer x1;
-    public Integer x2;
-    public Integer x3;
-    public Integer x4;
+    public float x1;
+    public float x2;
+    public float x3;
+    public float x4;
 
-    public Vector4D(Integer x1, Integer x2, Integer x3, Integer x4) {
+    public Vector4D(float x1, float x2, float x3, float x4) {
         this.x1 = x1;
         this.x2 = x2;
         this.x3 = x3;

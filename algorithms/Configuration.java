@@ -1,36 +1,36 @@
 package algorithms;
 
-    // coefficients list
+// coefficients list
 public class Configuration {
 
-    public static final Integer TABU_LIST_SIZE = 5;
+    // CONST FOR GRIEWANK
+    public static final int GRIEWANK_SPACE_SIZE = 20;
+    public static final float GRIEWANK_NEIGHBOUR_DISTANCE = 0.01F;
+    public static int GRIEWANK_MAX_TIME;
 
-    // for griewank function
-    public static final int GRIEWANK_ITERATIONS = 2000;
-    public static final int GRIEWANK_SPACE_SIZE = 200;
-    public static final int GRIEWANK_NEIGHBOUR_DISTANCE = 1;
-    public static  int GRIEWANK_MAX_TIME;
+    // CONST FOR HAPPYCAT
+    public static final int HAPPY_CAT_SEARCH_SPACE_SIZE = 20;
+    public static final float HAPPY_CAT_NEIGHBOUR_DISTANCE = 0.0000001F;
+    public static int HAPPYCAT_MAX_TIME;
 
-    // for happycat functioon
-    public static final int HAPPY_CAT_ITERATIONS = 2000;
-    public static final int HAPPY_CAT_SEARCH_SPACE_SIZE = 200;
-    public static final int HAPPY_CAT_NEIGHBOUR_DISTANCE = 1;
-    public static  int HAPPYCAT_MAX_TIME;
-
-    // CONSTANTS FOR HEURISTICS
-    public static final int TSP_MAX_ITERATIONS = 200;
+    // CONST FOR TSP
     public static final int PERMUTATIONS_SIZE = 2;
-    public static  int TSP_MAX_TIME;
+    public static int TSP_MAX_TIME;
 
-    //
-    public static final Integer ROUTE_OPT_MAX_ITERATIONS = 200;
-    public static  int ROUTE_OPT_MAX_TIME;
+    // CONST FOR ROUTE_OPT
+    public static int ROUTE_OPT_MAX_TIME;
 
-    // should be >1
-    public static final float ALPHA_COEFFICIENT = 5F;
+    // ------------------------------------------------------
+    // CONST FOR HEURISTICS
+    // ------------------------------------------------------
+    // Tabu
+    public static final Integer TABU_LIST_SIZE = 5;
+    // Annealing
     public static final float STARTING_TEMPERATURE = 1F;
+    public static final float TEMPERATURE_REDUCTION = 1.05F;
+    // Extremal Opt
+    public static final float ALPHA_COEFFICIENT = 1.00005F;
     public static final float TAU = 1.2F;
 
 
-
-    }
+}

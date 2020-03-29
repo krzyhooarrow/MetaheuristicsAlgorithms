@@ -2,14 +2,16 @@ package problems.TSP;
 
 import algorithms.Configuration;
 import algorithms.implemented.permutation.Permutations;
+import algorithms.implemented.annealing.SimulatedAnnealingProblem;
+import algorithms.implemented.particle_swarm.ParticleSwarmOptimizationProblem;
 import graphs.DirectedGraph;
 import algorithms.implemented.tabu_search.TabuSearchProblem;
 
 import java.util.*;
 
-public class TSP extends DirectedGraph implements TabuSearchProblem<LinkedList<Integer>> {
+public class TSP extends DirectedGraph implements TabuSearchProblem<LinkedList<Integer>>, SimulatedAnnealingProblem<LinkedList<Integer>>
+        , ParticleSwarmOptimizationProblem<LinkedList<Integer>> {
 
-    private Integer currentStep = 0;
 
     public Integer time = 0;
 
@@ -18,19 +20,51 @@ public class TSP extends DirectedGraph implements TabuSearchProblem<LinkedList<I
     }
 
 
+    Queue<LinkedList<Integer>> initialSolutionsList = new PriorityQueue<>(Comparator.comparing(this::eval));
+
     @Override
     public LinkedList<Integer> generateInitialSolution() {
 
-        LinkedList<Integer> shuffledVertices = new LinkedList<>(getVertices());
-        Collections.shuffle(shuffledVertices);
+//         nearest neighbour algorithm as initial solution
+//
+//         for each vertex from V we create greedy hamiltonian cycle using NN algorithm starting from v
+        if (initialSolutionsList.isEmpty())
+            getVertices()
+                    .forEach(vertex -> initialSolutionsList.add(generateGreedyCycle(vertex)));
 
-        return shuffledVertices;
+        return initialSolutionsList.size() > 1 ? initialSolutionsList.poll() : initialSolutionsList.peek();
+
     }
+
+
+    private LinkedList<Integer> generateGreedyCycle(Integer vertex){
+
+        LinkedList<Integer> vertices = new LinkedList<>(getVertices());
+        LinkedList<Integer> cycle = new LinkedList<>();
+
+        cycle.add(vertex);
+        vertices.remove(vertex);
+
+        while (!vertices.isEmpty()){
+
+        cycle.add(closestNeighbour(cycle.getLast(),vertices));
+
+        vertices.remove(cycle.getLast());
+
+        }
+
+
+        return cycle;
+    }
+
+    private Integer closestNeighbour(Integer vertex,List<Integer> vertices){
+        return vertices.stream().min(Comparator.comparing(value-> getEdges()[vertex][value])).get();
+    }
+
 
     @Override
     public boolean getStopCondition() {
         return time >= Configuration.TSP_MAX_TIME;
-//                currentStep >= Configuration.TSP_MAX_ITERATIONS;
     }
 
     @Override
@@ -39,20 +73,20 @@ public class TSP extends DirectedGraph implements TabuSearchProblem<LinkedList<I
     }
 
     @Override
-    public void iterate(Integer iterator, LinkedList<Integer> solution, Integer timer) {
-        this.currentStep = iterator; this.time = timer;
+    public void iterate( LinkedList<Integer> solution, Integer timer) {
+      this.time = timer;
     }
 
     @Override
     public LinkedList<Integer> substitute(LinkedList<Integer> value1, LinkedList<Integer> value2) {
-        LinkedList<Integer> cycle = new LinkedList<>();
+        LinkedList<Integer> permutation = new LinkedList<>();
 
         value1.forEach(vertex -> {
             if (!(value1.indexOf(vertex) == value2.indexOf(vertex)))
-                cycle.add(vertex);
+                permutation.add(vertex);
         });
-        cycle.sort(Comparator.comparing(Integer::intValue));
-        return cycle;
+        permutation.sort(Comparator.comparing(Integer::intValue));
+        return permutation;
     }
 
     @Override
@@ -64,16 +98,19 @@ public class TSP extends DirectedGraph implements TabuSearchProblem<LinkedList<I
     public LinkedList<LinkedList<Integer>> getNeighbourhood(LinkedList<Integer> solution) {
 
         LinkedList<LinkedList<Integer>> neighbourhood = new LinkedList<>();
-        List<List<Integer>> permutations = new Permutations<Integer>().combine(Configuration.PERMUTATIONS_SIZE, solution);
 
-        permutations.forEach(
+        new Permutations<Integer>()
+            .combine(Configuration.PERMUTATIONS_SIZE, solution)
+            .forEach(
                 permutation ->
                 {
                     LinkedList<Integer> neighbour = new LinkedList<>(solution);
                     Collections.swap(neighbour, neighbour.indexOf(permutation.get(0)), neighbour.indexOf(permutation.get(1)));
                     neighbourhood.addAll(Collections.singleton(neighbour));
                 }
-        );
+        );  // 2 - opt
+
+
 
         return neighbourhood;
     }
@@ -83,6 +120,33 @@ public class TSP extends DirectedGraph implements TabuSearchProblem<LinkedList<I
         return list.stream().min(Comparator.comparing(this::getCycleCost)).get();
     }
 
+
+
+    @Override
+    public Set<LinkedList<Integer>> initializePopulation() {
+
+        if (initialSolutionsList.isEmpty())
+            getVertices()
+                    .forEach(vertex -> initialSolutionsList.add(generateGreedyCycle(vertex)));
+
+        return new HashSet<>(initialSolutionsList);
+    }
+
+
+    @Override
+    public LinkedList<Integer> randomVelocity(LinkedList<Integer> particle) {
+        return null;
+    }
+
+    @Override
+    public LinkedList<Integer> updateVelocity(LinkedList<Integer> velocity, LinkedList<Integer> globalBest, LinkedList<Integer> bestSolution) {
+        return null;
+    }
+
+    @Override
+    public LinkedList<Integer> updatePosition(LinkedList<Integer> currentPosition, LinkedList<Integer> velocity) {
+        return null;
+    }
 
 //    @Override
 //    public LinkedList<LinkedList<Integer>> getComponents(LinkedList<Integer> solution) {
@@ -149,9 +213,9 @@ public class TSP extends DirectedGraph implements TabuSearchProblem<LinkedList<I
 //    }
 //
 //
-//    @Override
-//    public LinkedList<LinkedList<Integer>> getRanks(LinkedList<Integer> solution) {
-//        return null;
-//    }
+    @Override
+    public LinkedList<LinkedList<Integer>> getRanks(LinkedList<Integer> solution) {
+        return null;
+    }
 
 }

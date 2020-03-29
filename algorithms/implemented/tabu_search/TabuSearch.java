@@ -66,9 +66,8 @@ public class TabuSearch<U extends TabuSearchProblem<T>, T> {
             // clearing all and moving to next iteration
             candidateList.clear();
             // next iteration
-            problem.iterate(iterations,currentSolution, Math.toIntExact(System.currentTimeMillis() / 1000)-timer);
+            problem.iterate(currentSolution, Math.toIntExact(System.currentTimeMillis() / 1000)-timer);
             iterations++;
-
         }
         return bestSolution;
     }

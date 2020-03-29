@@ -8,14 +8,14 @@ import java.util.*;
 public class RouteOptProblem implements TabuSearchProblem<RouteOptProblem.Point> {
 
     private Random generator = new Random();
-    private Integer currentStep = 0;
+
 
     private int[][] map;
     private int N;  // map width
     private int M;  // map height;
 
-    private int startingX;
-    private int startingY;
+    public int startingX;
+    public int startingY;
 
     private boolean alreadyFoundWallLeft = false;
     private boolean alreadyFoundWallLeft_last = false;
@@ -148,8 +148,8 @@ public class RouteOptProblem implements TabuSearchProblem<RouteOptProblem.Point>
     }
 
     @Override
-    public void iterate(Integer iterator, Point solution, Integer timer) {
-        this.currentStep = iterator;
+    public void iterate( Point solution, Integer timer) {
+
         this.solution = solution;
         this.time = timer;
     }

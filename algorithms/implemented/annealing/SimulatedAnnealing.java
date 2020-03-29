@@ -1,4 +1,4 @@
-package algorithms.in_progress.annealing;
+package algorithms.implemented.annealing;
 
 import algorithms.Configuration;
 
@@ -12,7 +12,7 @@ public class SimulatedAnnealing<U extends SimulatedAnnealingProblem<T>, T> {
 
         float bestSolutionEval, currentSolutionEval,temporarySolutionEval, temperature = Configuration.STARTING_TEMPERATURE;
 
-        int iterations = 0;
+        int timer = Math.toIntExact(System.currentTimeMillis() / 1000);
 
         T bestSolution = problem.generateInitialSolution(), currentSolution = bestSolution,temporarySolution;
 
@@ -25,27 +25,24 @@ public class SimulatedAnnealing<U extends SimulatedAnnealingProblem<T>, T> {
             temporarySolutionEval = problem.eval(temporarySolution);
 
             if (temporarySolutionEval <= currentSolutionEval) {
+
                 currentSolution = temporarySolution;
                 if (temporarySolutionEval <= bestSolutionEval)
                     bestSolution = temporarySolution;
+
             }
             else if (acceptancePropability(problem.eval(currentSolution), problem.eval(temporarySolution), temperature) > generator.nextFloat())
                 currentSolution = temporarySolution;
 
-            temperature = modifyTemperature(iterations);
+            temperature *=Configuration.TEMPERATURE_REDUCTION;
 
-            problem.iterate(iterations);
-            iterations++;
+            problem.iterate(currentSolution,Math.toIntExact(System.currentTimeMillis() / 1000)-timer);
         }
         return bestSolution;
     }
 
-    private float modifyTemperature(Integer temperature) {
-        return temperature*0.99F;
-    }
-
     private Float acceptancePropability(Float evalI, Float evalJ, Float temperature) {
-        return ((Double) Math.exp((evalI - evalJ) / temperature)).floatValue();
+        return ((Double) Math.exp((evalI - evalJ)/ (evalI * temperature))).floatValue();
     }
 
 }

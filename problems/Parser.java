@@ -10,6 +10,7 @@ import java.io.*;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Objects;
 import java.util.regex.Pattern;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
@@ -60,7 +61,7 @@ public class Parser {
             String nextLine;
             while ((nextLine = br.readLine()) != null) {
 
-                points.add(Arrays.stream(nextLine.split("\\s+"))
+                points.add(Arrays.stream(nextLine.split("\\s+")).filter(element -> !element.equals(""))
                         .mapToInt(Integer::valueOf)
                         .boxed()
                         .collect(Collectors.toCollection(LinkedList::new)));
@@ -77,7 +78,7 @@ public class Parser {
         for (int i = 0 ; i < points.size();i++)
             for (int j = 0 ; j < points.getFirst().size();j++)
                 if (i!=j)
-                    tsp.getEdges().add(new Edge(i,j,points.get(i).get(j).floatValue()));
+                    tsp.addEdge(i,j,points.get(i).get(j).floatValue());
 
         return tsp;
     }

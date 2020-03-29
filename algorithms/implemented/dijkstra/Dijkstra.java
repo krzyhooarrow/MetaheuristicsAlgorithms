@@ -28,16 +28,19 @@ public class Dijkstra {
 
             for (Integer vertexNeighbour : graph.getVertexNeighbours(current.vertex)) {
                 // updating values in distances array
-                if (distances[vertexNeighbour] > distances[current.vertex] + graph.getEdgeBetweenTwoVertices(current.vertex, vertexNeighbour).getWeight()){
+                if (distances[vertexNeighbour] > distances[current.vertex] + graph.getEdgeBetweenTwoVertices(current.vertex, vertexNeighbour)){
 
-                    distances[vertexNeighbour] = distances[current.vertex] + graph.getEdgeBetweenTwoVertices(current.vertex, vertexNeighbour).getWeight();
+                    distances[vertexNeighbour] = distances[current.vertex] + graph.getEdgeBetweenTwoVertices(current.vertex, vertexNeighbour);
 
                     // updating values in priority queue
                     VertexDistance finalCurrent = current;
                     priorityQueue.stream()
-                            .filter(vertexDistance -> vertexDistance.vertex.equals(vertexNeighbour))
-                            .forEach(vertexDistance -> vertexDistance.distance = distances[finalCurrent.vertex] +
-                             graph.getEdgeBetweenTwoVertices(finalCurrent.vertex, vertexNeighbour).getWeight());
+                            .filter(
+                                    vertexDistance -> vertexDistance.vertex.equals(vertexNeighbour))
+                            .forEach(
+                                    vertexDistance -> vertexDistance.distance = distances[finalCurrent.vertex]
+                                                                +
+                                    graph.getEdgeBetweenTwoVertices(finalCurrent.vertex, vertexNeighbour));
                 }
             }
         }
