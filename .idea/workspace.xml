@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="1e164b7d-77c0-48ff-8436-640c80a9596c" name="Default Changelist" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectId" id="1ZJrLLaiPMAc6kcy8bz5PZCkz1U" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/Main.java" />
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="1e164b7d-77c0-48ff-8436-640c80a9596c" name="Default Changelist" comment="" />
+      <created>1584567980661</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1584567980661</updated>
+      <workItem from="1584567982682" duration="45000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="418" y="189" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1584568015964">
+      <screen x="0" y="28" width="1920" height="1006" />
+    </state>
+    <state x="418" y="189" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.28.1920.1006@0.28.1920.1006" timestamp="1584568015964" />
+    <state x="801" y="423" width="307" height="214" key="#com.intellij.ide.util.projectWizard.JdkChooserPanel.MyDialog" timestamp="1584568000457">
+      <screen x="0" y="28" width="1920" height="1006" />
+    </state>
+    <state x="801" y="423" width="307" height="214" key="#com.intellij.ide.util.projectWizard.JdkChooserPanel.MyDialog/0.28.1920.1006@0.28.1920.1006" timestamp="1584568000457" />
+    <state x="743" y="289" width="424" height="482" key="FileChooserDialogImpl" timestamp="1584567995679">
+      <screen x="0" y="28" width="1920" height="1006" />
+    </state>
+    <state x="743" y="289" width="424" height="482" key="FileChooserDialogImpl/0.28.1920.1006@0.28.1920.1006" timestamp="1584567995679" />
+  </component>
+</project>
