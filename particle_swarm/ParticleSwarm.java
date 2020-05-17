@@ -5,7 +5,7 @@ import java.util.stream.Collectors;
 
 public class ParticleSwarm<U extends ParticleSwarmOptimizationProblem<T>, T> {
 
-    private final int swarmSize = 100;
+    private final int swarmSize = 200000;
 
     public T solve(ParticleSwarmOptimizationProblem<T> problem) {
 
