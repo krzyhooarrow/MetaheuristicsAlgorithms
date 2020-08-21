@@ -1,7 +1,7 @@
 # Metaheuristics_Algorithms
 
 
-### Repository contains implemented some of well-known (mainly)metaheuristic algorithms:
+### Repository contains my implementation of some well-known metaheuristics:
 
 
 
